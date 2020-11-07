@@ -1,10 +1,6 @@
 import styled from "@emotion/styled";
 
 const Avatar = styled.div`
-  @media (max-width: 500px) {
-    margin: 0 auto;
-  }
-
   background: #0076ff;
   color: #fff;
   font-size: 12px;

@@ -10,7 +10,7 @@ import { NextPage } from "~types";
 const NotFound: NextPage = () => (
   <Flex justify="center" style={{ height: "90vh" }} id="notfound">
     <Head>
-      <title>Server Error - NextJS SSR Kit</title>
+      <title>Server Error - Project Example Vercel</title>
     </Head>
     <Center style={{ color: "#03a9f3" }}>
       <ErrorStatus>500</ErrorStatus>

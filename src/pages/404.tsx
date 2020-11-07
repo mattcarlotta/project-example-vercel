@@ -15,7 +15,7 @@ const NotFound: NextPage = () => (
     id="notfound"
   >
     <Head>
-      <title>Not Found - NextJS SSR Kit</title>
+      <title>Not Found - Project Example Vercel</title>
     </Head>
     <Center
       style={{

@@ -1,43 +1,67 @@
-import styled from "@emotion/styled";
-import { FaCoffee } from "react-icons/fa";
+import * as React from "react";
+import Card from "~components/Layout/Card";
 import Center from "~components/Layout/Center";
-import Link from "~components/Navigation/Link";
-import SubTitle from "~components/Layout/SubTitle";
+import ErrorMessage from "~components/Layout/ErrorMessage";
+import LoadingUsers from "~components/Layout/LoadingUsers";
+import PageContainer from "~components/Layout/PageContainer";
+import Title from "~components/Layout/Title";
+import UserContainer from "~components/Layout/UserContainer";
 import Header from "~components/Navigation/Header";
-import { NextPage } from "~types";
+import app from "~utils/axiosConfig";
+import { NextPage, UserData } from "~types";
 
-const PageContainer = styled.div`
-  max-width: 850px;
-  width: 100%;
-  padding-top: 25vh;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-`;
+const Home: NextPage = () => {
+  const [state, setState] = React.useState({
+    data: [],
+    isLoading: true,
+    error: ""
+  });
+  const { data, error, isLoading } = state;
 
-const Home: NextPage = () => (
-  <Center data-testid="home-page" style={{ height: "100%", color: "#0076ff" }}>
-    <Header title="Home" url="/" />
-    <PageContainer>
-      <img
-        style={{ marginBottom: "10px", width: "100%" }}
-        src="/images/nextjsKit.png"
-        alt="ssrLogoLight.png"
-      />
-      <SubTitle>Edit files in the root directory and save to reload.</SubTitle>
-      <Link href="/users">
-        <FaCoffee
-          style={{
-            position: "relative",
-            top: 6,
-            fontSize: 23,
-            marginRight: 6
-          }}
-        />
-        See Example
-      </Link>
-    </PageContainer>
-  </Center>
-);
+  const fetchUsers = React.useCallback(async (): Promise<any> => {
+    try {
+      const res = await app.get("users");
+
+      setState({
+        data: res.data.users,
+        isLoading: false,
+        error: ""
+      });
+    } catch (error) {
+      setState({
+        data: [],
+        isLoading: false,
+        error: error.message
+      });
+    }
+  }, []);
+
+  React.useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
+  return (
+    <Center
+      data-testid="home-page"
+      style={{ height: "100%", color: "#0076ff" }}
+    >
+      <Header title="Home" url="/" />
+      <PageContainer>
+        <Title>Registered Users</Title>
+        {isLoading ? (
+          <LoadingUsers />
+        ) : error ? (
+          <ErrorMessage>{error}</ErrorMessage>
+        ) : (
+          <UserContainer>
+            {data.map((props: UserData, idx) => (
+              <Card {...props} idx={idx} key={props.id} />
+            ))}
+          </UserContainer>
+        )}
+      </PageContainer>
+    </Center>
+  );
+};
 
 export default Home;

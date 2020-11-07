@@ -6,6 +6,10 @@ const Flex = styled.div<{
   flexwrap?: boolean;
   width?: string;
 }>`
+  @media (max-width: 500px) {
+    display: block;
+  }
+
   flex-direction: ${({ direction }) => direction || "row"};
   display: flex;
   justify-content: center;

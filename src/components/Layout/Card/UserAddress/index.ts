@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 const UserAddress = styled.ul`
-  margin-top: 5px;
+  margin-top: 10px;
   font-size: 14px;
   padding: 0;
   list-style: none;

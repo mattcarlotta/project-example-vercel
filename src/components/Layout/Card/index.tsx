@@ -1,17 +1,9 @@
 import styled from "@emotion/styled";
-import { BsPencilSquare, BsThreeDots, BsTrash } from "react-icons/bs";
 import Avatar from "~components/Layout/Avatar";
-import Dropdown from "~components/Layout/Dropdown";
-import Flex from "~components/Layout/Flex";
-import FlexEnd from "~components/Layout/FlexEnd";
-import FlexStart from "~components/Layout/FlexStart";
 import FadeIn from "~components/Layout/FadeIn";
-import Menu from "~components/Layout/Menu";
-import MenuButton from "~components/Layout/MenuButton";
-import MenuItem from "~components/Layout/MenuItem";
+import Flex from "~components/Layout/Flex";
 import toInitials from "~utils/toInitials";
 import UserAddress from "./UserAddress";
-import UserBackground from "./UserBackground";
 import UserDetails from "./UserDetails";
 import UserName from "./UserName";
 import { CardProps } from "~types";
@@ -26,52 +18,17 @@ const Divider = styled.li`
 
 const CardComponent = ({
   className,
-  _id,
   idx,
-  address: { street, state, suite, city, zipCode },
-  backgroundInfo,
   email,
-  firstName,
-  deleteUser,
-  handleEditClick,
-  lastName,
-  userName
+  address: { street, suite, city, zipcode },
+  name,
+  username
 }: CardProps): JSX.Element => (
   <FadeIn data-testid="card-container" timing={`${0.5 + idx / 10}s`}>
     <div className={className}>
       <Flex>
-        <FlexStart>
-          <Avatar>{toInitials(`${firstName} ${lastName}`)}</Avatar>
-          <UserName>{userName}</UserName>
-        </FlexStart>
-        <FlexEnd>
-          <Dropdown
-            menu={
-              <Menu>
-                <MenuItem>
-                  <MenuButton
-                    role="button"
-                    data-testid="edit"
-                    onClick={() => handleEditClick(_id)}
-                  >
-                    <BsPencilSquare />
-                  </MenuButton>
-                </MenuItem>
-                <MenuItem>
-                  <MenuButton
-                    role="button"
-                    data-testid="delete"
-                    onClick={() => deleteUser(_id)}
-                  >
-                    <BsTrash />
-                  </MenuButton>
-                </MenuItem>
-              </Menu>
-            }
-          >
-            <BsThreeDots />
-          </Dropdown>
-        </FlexEnd>
+        <Avatar>{toInitials(name)}</Avatar>
+        <UserName>{username}</UserName>
       </Flex>
       <UserDetails>{email}</UserDetails>
       <UserAddress>
@@ -85,24 +42,28 @@ const CardComponent = ({
         )}
         <li>{city}</li>
         <Divider />
-        <li>{state}</li>
-        <Divider />
-        <li>{zipCode}</li>
+        <li>{zipcode}</li>
       </UserAddress>
-      <UserBackground>
-        <p>{backgroundInfo}</p>
-      </UserBackground>
     </div>
   </FadeIn>
 );
 
 const Card = styled(CardComponent)`
-  @media (max-width: 500px) {
-    ${Flex},${FlexStart}, ${FlexEnd} {
-      display: block !important;
-      width: 100%;
-    }
-    text-align: center;
+  width: 250px;
+  margin: 10px;
+  border-radius: 4px;
+  text-align: left;
+  background-color: white;
+  color: #0096ff;
+  box-shadow: 0px 8px 15px -8px rgba(0, 0, 0, 0.75);
+  padding: 10px;
+  transition: all 200ms ease-in-out;
+  user-select: none;
+
+  :hover {
+    box-shadow: 0px 0px 26px -2px rgba(0, 0, 0, 1);
+    transform: scale(1.1);
+    z-index: 1000;
   }
 `;
 
