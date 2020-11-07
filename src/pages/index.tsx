@@ -1,4 +1,5 @@
 import * as React from "react";
+import { BiMessageAltError } from "react-icons/bi";
 import Card from "~components/Layout/Card";
 import Center from "~components/Layout/Center";
 import ErrorMessage from "~components/Layout/ErrorMessage";
@@ -31,7 +32,7 @@ const Home: NextPage = () => {
       setState({
         data: [],
         isLoading: false,
-        error: error.message
+        error
       });
     }
   }, []);
@@ -49,9 +50,14 @@ const Home: NextPage = () => {
       <PageContainer>
         <Title>Registered Users</Title>
         {isLoading ? (
-          <LoadingUsers />
+          <LoadingUsers width={250} height={135} />
         ) : error ? (
-          <ErrorMessage>{error}</ErrorMessage>
+          <ErrorMessage style={{ color: "#e60039" }}>
+            <BiMessageAltError
+              style={{ marginRight: 5, position: "relative", top: 5 }}
+            />
+            {error}
+          </ErrorMessage>
         ) : (
           <UserContainer>
             {data.map((props: UserData, idx) => (

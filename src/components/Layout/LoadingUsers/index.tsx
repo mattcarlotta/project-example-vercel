@@ -1,10 +1,15 @@
 import styled from "@emotion/styled";
 import FadeIn from "~components/Layout/FadeIn";
+import UserContainer from "~components/Layout/UserContainer";
 import { LoadingUsersProps } from "~types";
 
 const LoadingUsersComponent = ({ className }: LoadingUsersProps) => (
   <FadeIn data-testid="loading-users" timing="0.6s">
-    <div data-testid="loading-user-card" className={className} />
+    <UserContainer>
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(key => (
+        <div key={key} data-testid="loading-user-card" className={className} />
+      ))}
+    </UserContainer>
   </FadeIn>
 );
 const LoadingUsers = styled(LoadingUsersComponent)`
@@ -20,15 +25,15 @@ const LoadingUsers = styled(LoadingUsersComponent)`
 
   @keyframes pulse {
     0% {
-      background-color: #eee;
+      background-color: #ccc;
     }
 
     50% {
-      background-color: #e4e4e4;
+      background-color: #bbb;
     }
 
     100% {
-      background-color: #eee;
+      background-color: #ccc;
     }
   }
 

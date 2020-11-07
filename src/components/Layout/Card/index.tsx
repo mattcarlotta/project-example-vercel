@@ -4,6 +4,7 @@ import FadeIn from "~components/Layout/FadeIn";
 import Flex from "~components/Layout/Flex";
 import toInitials from "~utils/toInitials";
 import UserAddress from "./UserAddress";
+import UserCard from "./UserCard";
 import UserDetails from "./UserDetails";
 import UserName from "./UserName";
 import { CardProps } from "~types";
@@ -16,8 +17,7 @@ const Divider = styled.li`
   border-left: 1px solid #d3d3d3;
 `;
 
-const CardComponent = ({
-  className,
+const Card = ({
   idx,
   email,
   address: { street, suite, city, zipcode },
@@ -25,7 +25,7 @@ const CardComponent = ({
   username
 }: CardProps): JSX.Element => (
   <FadeIn data-testid="card-container" timing={`${0.5 + idx / 10}s`}>
-    <div className={className}>
+    <UserCard>
       <Flex>
         <Avatar>{toInitials(name)}</Avatar>
         <UserName>{username}</UserName>
@@ -44,27 +44,8 @@ const CardComponent = ({
         <Divider />
         <li>{zipcode}</li>
       </UserAddress>
-    </div>
+    </UserCard>
   </FadeIn>
 );
-
-const Card = styled(CardComponent)`
-  width: 250px;
-  margin: 10px;
-  border-radius: 4px;
-  text-align: left;
-  background-color: white;
-  color: #0096ff;
-  box-shadow: 0px 8px 15px -8px rgba(0, 0, 0, 0.75);
-  padding: 10px;
-  transition: all 200ms ease-in-out;
-  user-select: none;
-
-  :hover {
-    box-shadow: 0px 0px 26px -2px rgba(0, 0, 0, 1);
-    transform: scale(1.1);
-    z-index: 1000;
-  }
-`;
 
 export default Card;
