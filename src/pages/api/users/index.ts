@@ -10,7 +10,7 @@ const getUsers = async (
       "https://jsonplaceholder.typicode.com/users"
     );
 
-    await new Promise(resolve => setTimeout(() => resolve(), 1500));
+    await new Promise(resolve => setTimeout(() => resolve(), 2000));
 
     res.status(200).json({ users: response.data });
   } catch (err) {
